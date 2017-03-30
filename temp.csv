@@ -1,3 +1,4 @@
-﻿"Question","Intent","Confidence"
-"스커트 추천해주세요!","recommend",0.974011266320594
-"안녕하세요?","recommend",0.589717575897005
+﻿"Question","Intent","Entity"
+"안녕하세요","greeting:0.5276788188989666",""
+"파란색","recommend:0.7723960623101788",""
+"파란색 스커트 추천해주세요","recommend:0.9754654572856208","PRODUCT:SKIRT"

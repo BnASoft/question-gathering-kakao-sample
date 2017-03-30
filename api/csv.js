@@ -30,17 +30,36 @@ let collectQuestion = (req, res) => {
 	   },
 	   {
 	   	'label' : 'Intent',
-	   	'value' : 'doc.res.intents[0].intent'
+	   	'value' : 'doc.res.intent'
 	   },
 	   {
-	   	'label' : 'Confidence',
-	   	'value' : 'doc.res.intents[0].confidence'
+	   	'label' : 'Entity',
+	   	'value' : 'doc.res.entity'
 	   }
 	]
 
 	db.list({include_docs:true}, (err, docs) => {
 		let path = './temp.csv';
-		let csv = json2csv({ data: docs.rows, fields: fields });
+		let data = docs.rows;
+
+		//refine data
+		for(let d of data){
+			let intents = [];
+			let entities = [];
+			for(let intent of d.doc.res.intents){
+				intents.push(intent.intent + ":" + intent.confidence);
+			}
+			d.doc.res.intent = intents.join(',');
+			for(let entity of d.doc.res.entities){
+				entities.push(entity.entity + ":" + entity.value);
+
+			}
+			d.doc.res.entity = entities.join(',');
+		}
+
+		//convert data to csv
+		let csv = json2csv({ data: data, fields: fields });
+
 		fs.writeFile(path, '\ufeff'+csv, function(err) {
 		  if (err) throw err;
 		  else res.download(path);
