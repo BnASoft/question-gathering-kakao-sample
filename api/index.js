@@ -19,6 +19,7 @@
 console.log('APIs initialize');
 
 const conversation = require('./message');
+const csv = require('./csv');
 const kakao_keyboard = require('./kakao/keyboard');
 const kakao_message = require('./kakao/message');
 
@@ -27,5 +28,6 @@ module.exports = {
         conversation.initialize(app, options);
         kakao_keyboard.initialize(app, options);
         kakao_message.initialize(app, options);
+        csv.initialize(app, options);
     }
 };
