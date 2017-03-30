@@ -26,15 +26,15 @@ let collectQuestion = (req, res) => {
 	let fields = [
 	   {
 	   	'label' : 'Question',
-	   	'value' : 'doc.res.input.text'
+	   	'value' : 'doc.response.input.text'
 	   },
 	   {
 	   	'label' : 'Intent',
-	   	'value' : 'doc.res.intent'
+	   	'value' : 'doc.response.intent'
 	   },
 	   {
 	   	'label' : 'Entity',
-	   	'value' : 'doc.res.entity'
+	   	'value' : 'doc.response.entity'
 	   }
 	]
 
@@ -46,15 +46,15 @@ let collectQuestion = (req, res) => {
 		for(let d of data){
 			let intents = [];
 			let entities = [];
-			for(let intent of d.doc.res.intents){
+			for(let intent of d.doc.response.intents){
 				intents.push(intent.intent + ":" + intent.confidence);
 			}
-			d.doc.res.intent = intents.join(',');
-			for(let entity of d.doc.res.entities){
+			d.doc.response.intent = intents.join(',');
+			for(let entity of d.doc.response.entities){
 				entities.push(entity.entity + ":" + entity.value);
 
 			}
-			d.doc.res.entity = entities.join(',');
+			d.doc.response.entity = entities.join(',');
 		}
 
 		//convert data to csv

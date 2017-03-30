@@ -21,11 +21,8 @@ let postMessage = (req, res) => {
       'user_key' : user_key
     })).then(data => {
       // context를 업데이트 합니다.
-      db.insert(Object.assign(doc, {
-        'context': Object.assign(data.context, {
-          'timezone' : "Asia/Seoul"
-        }),
-      }));
+      db.insert(Object.assign(doc, data.context));
+      
       return res.json({
         "message" : {
           "text" : getOutputText(data)
@@ -44,9 +41,13 @@ let postMessage = (req, res) => {
       // context를 저장합니다.
       db.insert({
         '_id' : user_key,
-        'user_key' : user_key,
-        'context': data.context,
-        'type' : 'kakao'
+        //'user_key' : user_key,
+        'session': {
+          'context': Object.assign(data.context, {
+            'channel' : 'kakao',
+            'timezone' : "Asia/Seoul"
+          })
+        },
       });
           
       return res.json({

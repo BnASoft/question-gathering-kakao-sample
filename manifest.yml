@@ -1,6 +1,6 @@
 ---
 applications:
-- name: conversation-question-gathering-kakao-ample
+- name: conversation-question-gathering-kakao-sample
   command: npm start
   path: .
   memory: 256M

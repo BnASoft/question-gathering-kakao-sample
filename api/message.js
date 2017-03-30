@@ -110,9 +110,9 @@ let postProcess = response => {
 */
 let saveConversation = (input, output) => {
   db.insert({
-    'req' : input,
-    'res': output,
-    'type' : 'test'
+    'request' : input,
+    'response': output,
+    'time' : new Date()
   });
 };
 
