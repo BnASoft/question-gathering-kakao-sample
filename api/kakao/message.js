@@ -25,7 +25,7 @@ let postMessage = (req, res) => {
       doc.session.context = Object.assign(data.context, {
             'channel' : 'kakao',
             'timezone' : "Asia/Seoul"
-          });
+          })  ;
 
       db.insert(doc);
 
@@ -75,7 +75,10 @@ let postMessage = (req, res) => {
 let getOutputText = data => {
   let output = data.output;
   if(output.text && Array.isArray(output.text)){
-    return output.text.join('\\n');
+    return output.text.join('\n');
+  }
+  else if(output.text && output.text.values && Array.isArray(output.text.values)){
+    return output.text.values.join('\n')
   }
   else if(output.text){
     return output.text;
