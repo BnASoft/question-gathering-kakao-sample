@@ -22,7 +22,10 @@ let postMessage = (req, res) => {
     })).then(data => {
       // context를 업데이트 합니다.
 
-      doc.session.context = data.context;
+      doc.session.context = Object.assign(data.context, {
+            'channel' : 'kakao',
+            'timezone' : "Asia/Seoul"
+          });
 
       db.insert(doc);
 
