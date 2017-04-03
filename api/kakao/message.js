@@ -17,12 +17,15 @@ let postMessage = (req, res) => {
   //user_key를 사용하여 db에 저장된 context가 있는지 확인합니다.
   db.get(user_key).then(doc => {
   	//저장된 context가 있는 경우 이를 사용하여 conversation api를 호출합니다.
-    conversation.getConversationResponse(content, Object.assign(doc.context, {
+    conversation.getConversationResponse(content, Object.assign(doc.session.context, {
       'user_key' : user_key
     })).then(data => {
       // context를 업데이트 합니다.
-      db.insert(Object.assign(doc, data.context));
-      
+
+      doc.session.context = data.context;
+
+      db.insert(doc);
+
       return res.json({
         "message" : {
           "text" : getOutputText(data)
