@@ -38,7 +38,8 @@ let collectQuestion = (req, res) => {
 	   }
 	]
 
-	db.list({include_docs:true}, (err, docs) => {
+	db.view('time', 'docsByTime', {include_docs:true}, (err, docs) => {
+		console.log(err, docs)
 		let path = './temp.csv';
 		let data = docs.rows;
 
