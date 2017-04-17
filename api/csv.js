@@ -35,11 +35,15 @@ let collectQuestion = (req, res) => {
 	   {
 	   	'label' : 'Entity',
 	   	'value' : 'doc.response.entity'
+	   },
+	   {
+	   	'label' : 'User_Key',
+	   	'value' : 'doc.response.context.user_key'
 	   }
 	]
 
 	db.view('time', 'docsByTime', {include_docs:true}, (err, docs) => {
-		console.log(err, docs)
+		//console.log(err, docs)
 		let path = './temp.csv';
 		let data = docs.rows;
 
